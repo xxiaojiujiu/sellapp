@@ -65,9 +65,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import star from '../star/star'
+  import star from '../star/star';
    export default {
-     //子组件接收父组件传来的数据
+     // 子组件接收父组件传来的数据
      props: {
        seller: {
          type: Object
@@ -80,10 +80,10 @@
      },
      methods: {
        showDetail() {
-         this.detailShow = true
+         this.detailShow = true;
        },
        hideDetail() {
-         this.detailShow = false
+         this.detailShow = false;
        }
      },
      created() {

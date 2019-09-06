@@ -30,7 +30,7 @@
         for (let i=0; i<integer;i++){
           result.push(CLS_ON);
         }
-        if(hasDecimal) {
+        if (hasDecimal) {
           result.push(CLS_HALF);
         }
         while (result.length < LENGTH) {
