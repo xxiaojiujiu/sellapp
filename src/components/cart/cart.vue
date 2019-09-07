@@ -11,7 +11,7 @@
         <div class="price" :class="{'highlight':totalPrice>0}">￥{{totalPrice}}</div>
         <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
       </div>
-      <div class="content-right">
+      <div class="content-right" @click.stop.prevent="pay">
         <div class="pay" :class="payClass">
           {{payDesc}}
         </div>
@@ -20,7 +20,7 @@
     <div class="shopcart-list" v-show="listShow">
       <div class="list-header">
         <h1 class="title">购物车</h1>
-        <span class="empty">清空</span>
+        <span class="empty" @click="empty">清空</span>
       </div>
       <div class="list-content" ref="listContent">
         <ul>
@@ -36,6 +36,7 @@
         </ul>
       </div>
     </div>
+    <div class="list-mask" v-show="listShow" @click="hideList"></div>
   </div>
 </template>
 
@@ -142,6 +143,23 @@
           return;
         }
         this.fold = !this.fold;
+      },
+      empty() {
+        this.selectFoods.forEach((food) => {
+          food.count = 0;
+        });
+      },
+      hideList() {
+        this.fold = true;
+      },
+      pay() {
+        if (this.totalPrice<this.minPrice) {
+          return;
+        }
+        window.alert(`支付${this.totalPrice}元`);
+        this.selectFoods.forEach((food) => {
+          food.count = 0;
+        })
       }
     }
   };
@@ -160,11 +178,13 @@
       display flex
       background-color  #141d17
       font-size 0
+      z-index 50
       .content-left
         flex 1
         .logo-wrapper
           display inline-block
           position relative
+          z-index 50
           top -10px
           margin 0 12px
           padding 6px
@@ -240,9 +260,9 @@
             color #fff
     .shopcart-list
       position absolute
-      bottom 60px
+      bottom 45px
       left 0
-      z-index 1
+      z-index 0
       width 100%
       .list-header
         height 40px
@@ -284,5 +304,14 @@
             position absolute
             right 0
             bottom 6px
+    .list-mask
+      position fixed
+      top 0
+      left 0
+      z-index -1
+      width 100%
+      height 100%
+      background rgba(7,17,27,0.4)
+      backdrop-filter blur(5px)
 </style>
 
