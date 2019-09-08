@@ -68,7 +68,7 @@
   import Vue from 'vue';
   import split from '../split/split';
   import ratingselect from '../ratingselect/ratingselect';
-
+  import {formatDate} from '../../common/js/date';
   const POSITIVE = 0;
   const NEGATIVE = 1;
   const ALL = 2;
@@ -139,9 +139,10 @@
         }
       }
     },
-    filter: {
+    filters: {
       formatDate(time) {
-
+        let date = new Date(time);
+        return formatDate(date, 'yyyy-MM-dd hh:mm');
       }
     },
     components: {

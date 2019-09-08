@@ -42,7 +42,7 @@ const router = new VueRouter({
   routes
 });
 var vm = new Vue({
-el: '#app',
+  el: '#app',
   router,
   render: h => h(App)
 });
