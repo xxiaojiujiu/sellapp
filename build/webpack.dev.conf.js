@@ -46,16 +46,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     before (app) {
       //get
       for(let i in getApi){
-        (function () {
-          var getData = jsonData[getApi[i].key];
-          app.get(getApi[i].url, function (req, res) {
-            res.json({
-              "errno": 0,
-              data: getData
+        // 循环请求 获取到三个数据文件
+        (function(){
+            var getData = jsonData[getApi[i].key];
+            app.get(getApi[i].url, function (req, res) {
+              res.json({
+                "errno": 0,
+                data: getData
+              });
             });
-          });
-        })()
-      }
+          })()
+        }
       //post
       for(let i in postApi){
         (function () {

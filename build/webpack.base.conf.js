@@ -36,6 +36,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      // 通过配置别名 后面的的引用中可以通过components直接引用到该目录下的文件 而不用再去使用相对路径
+      'components': path.resolve(__dirname, '../src/components')
     }
   },
   module: {

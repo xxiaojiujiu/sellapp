@@ -41,6 +41,7 @@ const router = new VueRouter({
   linkActiveClass: 'active',
   routes
 });
+router.push('/goods');
 var vm = new Vue({
   el: '#app',
   router,
