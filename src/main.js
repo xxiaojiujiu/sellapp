@@ -30,9 +30,9 @@ Vue.use(VueResource);
 // router.start(app, '#app');
 // 定义路由
 const routes = [
-  {path: '/goods', component: goods},
-  {path: '/ratings', component: ratings},
-  {path: '/seller', component: seller}
+  { path: '/goods', component: goods },
+  { path: '/ratings', component: ratings },
+  { path: '/seller', component: seller }
 ];
 
 // 创建 router 实例，然后传 `routes` 配置：

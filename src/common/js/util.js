@@ -16,4 +16,4 @@ export function urlParse () {
     });
   }// if
   return obj;
-};
+};//urlParse函数结束

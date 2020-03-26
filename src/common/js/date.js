@@ -1,3 +1,4 @@
+//导出模块 提供的接口为一个函数
 export function formatDate (date, fmt) {
   if (/(y+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
@@ -16,9 +17,8 @@ export function formatDate (date, fmt) {
     }
   }
   return fmt;
-};
+};//formatDate函数结束
 
 function padleftZero (str) {
   return ('00' + str).substr(str.length);
 }
-

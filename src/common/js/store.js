@@ -11,7 +11,7 @@ export function saveToLocal (id, key, value) {
   }
   seller[id][key] = value;
   window.localStorage.__seller__ = JSON.stringify(seller);
-};
+};//saveToLocal函数结束
 
 export function loadFromLocal (id, key, def) {
   let seller = window.localStorage.__seller__;
@@ -24,4 +24,4 @@ export function loadFromLocal (id, key, def) {
   }
   let ret = seller[key];
   return ret || def;
-};
+};//loadFromLocal函数结束

@@ -32,7 +32,7 @@
         </div>
         <div class="list-content" ref="listContent">
           <ul>
-            <li class="food" v-for="food in selectFoods">
+            <li class="food" v-for="food in selectFoods" :key="food.name">
               <span class="name">{{food.name}}</span>
               <div class="price">
                 <span>￥{{food.price*food.count}}</span>
@@ -54,11 +54,11 @@
 <script type="text/ecmascript-6">
   import cartcontrol from '../cartcontrol/cartcontrol.vue';
   import BScroll from 'better-scroll';
-  export default {
+  export default {// 导出模块 接口为一个对象
     props: {
       selectFoods: {
         type: Array,
-        default() {
+        default () {
           return [];
         }
       },
@@ -71,7 +71,7 @@
         default: 0
       }
     },
-    data() {
+    data () {
       return {
         balls: [
           {
@@ -95,64 +95,64 @@
       };
     },
     computed: {
-      totalPrice() {
+      totalPrice () {
         let total = 0;
         this.selectFoods.forEach((food) => {
           total += food.price * food.count;
         });
         return total;
       },
-      totalCount() {
+      totalCount () {
         let count = 0;
         this.selectFoods.forEach((food) => {
           count += food.count;
         });
         return count;
       },
-      payDesc() {
+      payDesc () {
         if (this.totalPrice === 0) {
           return `￥${this.minPrice}元起送`;
-        }else if (this.totalPrice<this.minPrice) {
+        } else if (this.totalPrice < this.minPrice) {
           let diff = this.minPrice - this.totalPrice;
           return `还差￥${diff}元起送`;
-        }else {
+        } else {
           return '去结算';
         }
       },
-      payClass() {
-        if(this.totalPrice < this.minPrice) {
+      payClass () {
+        if (this.totalPrice < this.minPrice) {
           return 'not-enough';
-        }else {
+        } else {
           return 'enough';
         }
       },
-      listShow() {
-        if (!this.totalCount){
+      listShow () {
+        if (!this.totalCount) {
           this.fold = true;
           return false;
         }
         let show = !this.fold;
-        if(show) {
+        if (show) {
           this.$nextTick(() => {
-            if(!this.scroll) {
-              this.scroll = new BScroll(this.$refs.listContent,{
+            if (!this.scroll) {
+              this.scroll = new BScroll(this.$refs.listContent, {
                 click: true
               });
-            }else {
+            } else {
               this.scroll.refresh();
             }
           });
         }
         return show;
       }
-    },// computed
+    }, // computed
     components: {
       cartcontrol
     },
     methods: {
-      drop(el) {
+      drop (el) {
         // el为获取到的加购购物车按钮 是一个dom节点
-        for (let i=0; i<this.balls.length; i++) {
+        for (let i = 0; i < this.balls.length; i++) {
           let ball = this.balls[i];
           if (!ball.show) {
             ball.show = true;
@@ -162,14 +162,14 @@
           }
         }
       },
-      beforeEnter(el) {
+      beforeEnter (el) {
         let count = this.balls.length;
-        while(count--) {
+        while (count--) {
           let ball = this.balls[count];
           if (ball.show) {
             let rect = ball.el.getBoundingClientRect();
             let x = rect.left - 32;
-            let y = -(window.innerHeight - rect.top -22);
+            let y = -(window.innerHeight - rect.top - 22);
             el.style.display = '';
             el.style.transform = `translate3d(0,${y}px,0)`;
             let inner = el.getElementsByClassName('inner-hook')[0];
@@ -177,7 +177,7 @@
           }
         }
       },
-      enter(el) {
+      enter (el) {
         /* eslint-disable no-unused-vars */
         let rf = el.offsetHeight;// 触发重绘
         this.$nextTick(() => {
@@ -186,35 +186,35 @@
           inner.style.transform = 'translate3d(0,0,0)';
         });
       },
-      afterEnter(el) {
+      afterEnter (el) {
         let ball = this.dropBalls.shift();
         if (ball) {
           ball.show = false;
           el.style.display = 'none';
         }
       },
-      toggleList() {
-        if(!this.totalCount) {
+      toggleList () {
+        if (!this.totalCount) {
           return;
         }
         this.fold = !this.fold;
       },
-      empty() {
+      empty () {
         this.selectFoods.forEach((food) => {
           food.count = 0;
         });
       },
-      hideList() {
+      hideList () {
         this.fold = true;
       },
-      pay() {
-        if (this.totalPrice<this.minPrice) {
+      pay () {
+        if (this.totalPrice < this.minPrice) {
           return;
         }
         window.alert(`支付${this.totalPrice}元`);
         this.selectFoods.forEach((food) => {
           food.count = 0;
-        })
+        });
       }
     }
   };
@@ -392,4 +392,3 @@
       &.fade-enter, &.fade-leave-to
         opacity 0
 </style>
-
